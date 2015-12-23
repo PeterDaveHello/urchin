@@ -12,35 +12,46 @@ other Unix platforms.
 Urchin's tests are written in Urchin, so you can run them to see what Urchin
 is like. Clone the repository
 
-    git clone git://github.com/tlevine/urchin.git
+```sh
+git clone git://github.com/tlevine/urchin.git
+```
 
 Run the tests
 
-    cd urchin
-    ./urchin tests
+```sh
+cd urchin
+./urchin tests
+```
 
 The above command will run the tests in your system's default
 shell, /bin/sh (on recent Ubuntu this is dash, but it could be
 ksh or bash on other systems); to test urchin's cross-shell compatibility,
 run this:
 
-    cd urchin
-    ./cross-shell-tests
+```sh
+cd urchin
+./cross-shell-tests
+```
 
 ## Globally
 Download Urchin like so (as root) (or use npm, below):
 
-    cd /usr/local/bin
-    wget https://raw.github.com/tlevine/urchin/master/urchin
-    chmod +x urchin
+```sh
+cd /usr/local/bin
+wget https://raw.github.com/tlevine/urchin/master/urchin
+chmod +x urchin
+```
 
 Can be installed with npm too:
 
-    npm install -g urchin
-
+```sh
+npm install -g urchin
+```
 Now you can run it.
 
-    urchin <test directory>
+```sh
+urchin <test directory>
+```
 
 Run `urchin -h` to get command-line help.
 
@@ -89,9 +100,11 @@ directory tree. The test passes if the file exits 0; otherwise, it fails.
 In case you care about the order in which your tests execute, consider that
 urchin looks for files within a directory in the following manner.
 
-    for file in *; do
-      do_something_with_test_file $file
-    done
+```sh
+for file in *; do
+  do_something_with_test_file $file
+done
+```
 
 Tests within a directory are executed in whatever order `*` returns.
 
@@ -109,8 +122,10 @@ The specific approach depends on your test scenario:
 
 First, consider using [shall](https://github.com/mklement0/shall).
 
-    #!/usr/bin/env shall
-    echo This is a test file.
+```sh
+#!/usr/bin/env shall
+echo This is a test file.
+```
 
 Alternatively, you can use urchin's built-in recognition of the
 `TEST_SHELL` environment variable.
@@ -126,9 +141,11 @@ Then, on invocation of Urchin, prepend a definition of environment variable
 `TEST_SHELL` specifying the shell to test with, e.g.: `TEST_SHELL=zsh urchin ./tests`.  
 To test with multiple shells in sequence, use something like:
 
-    for shell in sh bash ksh zsh; do
-      TEST_SHELL=$shell urchin ./tests
-    done
+```sh
+for shell in sh bash ksh zsh; do
+  TEST_SHELL=$shell urchin ./tests
+done
+```
 
 If `TEST_SHELL` has no value, Urchin defines it as `/bin/sh`, so the test
 scripts can rely on `$TEST_SHELL` always containing a value.
@@ -150,9 +167,11 @@ shells to coexist with those whose invocation should be controlled by `-s`.
 
 To test with multiple shells in sequence, use something like:
 
-    for shell in sh bash ksh zsh; do
-      urchin -s $shell ./tests
-    done
+```sh
+for shell in sh bash ksh zsh; do
+  urchin -s $shell ./tests
+done
+```
 
 <!--
 #### (c) Cross shell tests with `urchin -x` (experimental)
